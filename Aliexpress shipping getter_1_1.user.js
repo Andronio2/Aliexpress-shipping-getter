@@ -18,8 +18,8 @@ let shipping_getter_count = 10;
  * Настройки
  */
 
-let myCountry = ["RU", "KZ", "ALA"];
-let fromCountry = ["RU", "CN"];  // Страны "откуда" в порядке предпочтения
+let myCountry = ["RU", "KZ"];
+let fromCountry = [ "CN", "RU"];  // Страны "откуда" в порядке предпочтения
 let serviceName = 1;             // 1 - название, 0 - код сервиса
 /*
  * Дальше не трогать
@@ -52,7 +52,7 @@ let serviceName = 1;             // 1 - название, 0 - код серви�
     freightMass.sort( (a,b) => a.skuVal.actSkuCalPrice - b.skuVal.actSkuCalPrice);
     let minPrice = encodeURIComponent(freightMass[0].freightExt);
     let requests = myCountry.map(el => {
-        return fetch(`https://${host}/aeglodetailweb/api/logistics/freight?productId=${item}&count=1&country=${el}&tradeCurrency=USD&userScene=PC_DETAIL_SHIPPING_PANEL&displayMultipleFreight=false&ext=${minPrice}`, {
+        return fetch(`https://${host}/aeglodetailweb/api/logistics/freight?productId=${item}&count=1&minPrice=0&maxPrice=100000&country=${el}&tradeCurrency=USD&userScene=PC_DETAIL&ext=${minPrice}`, {
             "headers": {
                 "accept": "application/json, text/plain, */*",
                 "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7",
