@@ -1,13 +1,15 @@
 // ==UserScript==
 // @name         Aliexpress shipping getter
 // @namespace    http://tampermonkey.net/
-// @version      1.2
+// @version      1.3
 // @description  Получает цену доставки на указанные страны
 // @author       Andronio
-// @match        https://aliexpress.ru/item/*
+// @homepage     https://github.com/Andronio2/Aliexpress-shipping-getter
+// @supportURL   https://github.com/Andronio2/Aliexpress-shipping-getter
+// @updateURL    https://github.com/Andronio2/Aliexpress-shipping-getter/raw/main/Aliexpress%20shipping%20getter.user.js
+// @downloadURL  https://github.com/Andronio2/Aliexpress-shipping-getter/raw/main/Aliexpress%20shipping%20getter.user.js
 // @match        https://aliexpress.com/item/*
 // @match        https://www.aliexpress.com/item/*
-// @match        https://www.aliexpress.ru/item/*
 // @grant        none
 // @run-at       document-idle
 // ==/UserScript==
@@ -20,12 +22,12 @@ let shipping_getter_count = 10;
 
 let myCountry = ["KZ", "RU"];
 let fromCountry = [ "CN", "RU"];  // Страны "откуда" в порядке предпочтения
-let serviceName = 1;             // 1 - название, 0 - код сервиса
+let serviceName = 1;              // 1 - название, 0 - код сервиса
 /*
  * Дальше не трогать
  */
     if (--shipping_getter_count == 0) return console.log("Не смог найти доставку");
-    let shipping = document.querySelector('.product-shipping');
+    let shipping = document.querySelector('.product-delivery');
     if (!shipping) return setTimeout(repeat, 1000);
     let item = location.pathname.match(/\d+(?=\.html)/);
     let host = location.host;
@@ -96,7 +98,7 @@ let serviceName = 1;             // 1 - название, 0 - код серви�
             }
         }
         div.innerHTML = str + '</table>';
-        shipping.append(div);
+        shipping.after(div);
 
         let styles = `
             .table-shipping table{
