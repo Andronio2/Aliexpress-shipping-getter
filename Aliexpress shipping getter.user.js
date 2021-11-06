@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Aliexpress shipping getter
 // @namespace    http://tampermonkey.net/
-// @version      1.3
+// @version      1.4
 // @description  Получает цену доставки на указанные страны
 // @author       Andronio
 // @homepage     https://github.com/Andronio2/Aliexpress-shipping-getter
@@ -27,7 +27,7 @@ let serviceName = 1;              // 1 - название, 0 - код серви
  * Дальше не трогать
  */
     if (--shipping_getter_count == 0) return console.log("Не смог найти доставку");
-    let shipping = document.querySelector('.product-delivery');
+    let shipping = document.querySelector('.Product_Service__freightService__v5uaj, .Product_NewFreight__extraInfoDetail__3k9ff, .freight-extra-info, .product-shipping-info, .product-dynamic-shipping');;
     if (!shipping) return setTimeout(repeat, 1000);
     let item = location.pathname.match(/\d+(?=\.html)/);
     let host = location.host;
